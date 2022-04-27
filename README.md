@@ -1,5 +1,5 @@
 # dotfiles
-just dotfiles, that is it.
+Just dotfiles, that is it. Stole some stuff. Might clean it up, might not. 
 
 ![20220426_21h23m12s_grim](https://user-images.githubusercontent.com/50686623/165419778-7699e4dc-0a91-49bd-8eeb-8166e9dbd414.png)
 
