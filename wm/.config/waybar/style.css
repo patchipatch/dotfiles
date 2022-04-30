@@ -13,13 +13,15 @@
 * {
     border: none;
     border-radius: 0px;
-    font-family: "Cascadia Code";
+    font-family: "Cascadia Code", "Font Awesome 5 Free";
     font-size: 14px;
     min-height: 24px;
 }
 window#waybar {
-    background: transparent;
+    background: rgba(46,52,64, 0.8);
     color: @white;
+    border-radius: 25px;
+    margin: 2px 0px;
 }
 
 #window {

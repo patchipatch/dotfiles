@@ -33,8 +33,8 @@ for_window [app_id="cli-notif"] sticky enable, floating enable, move position ce
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output DP-3 bg ~/.config/wallpaper2.png fill
-output HDMI-A-1 bg ~/.config/burning.png fill
+output DP-3 bg ~/.config/texture.png tile
+output HDMI-A-1 bg ~/.config/texture.png tile
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
@@ -104,6 +104,7 @@ for_window [app_id="firefox"] inhibit_idle fullscreen
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
     bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym --whole-window button9 exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && play ~/.config/ball.mp3
 
     # Start a terminal
     bindsym $mod+Return exec $term
@@ -257,16 +258,19 @@ mode "$power" {
     bindsym Escape mode "default"
 }
 
+# Edit sway and waybar configs
+
 set $edit Edit which config? [S]way, [W]aybar, [B]ar Style, [C]ancel
 mode "$edit" {
-    bindsym s exec kitty --detach nvim ~/.config/sway/config ; mode "default"
-    bindsym w exec kitty --detach nvim ~/.config/waybar/config ; mode "default"
-    bindsym b exec kitty --detach nvim ~/.config/waybar/style.css ; mode "default"
+    bindsym s exec kitty --detach nvim ~/.config/sway/config ; mode "default" 
+    bindsym w exec kitty --detach nvim ~/.config/waybar/config ; mode "default" 
+    bindsym b exec kitty --detach nvim ~/.config/waybar/style.css ; mode "default" 
     bindsym c mode "default"
     bindsym Escape mode "default"
 }
 
 bindsym $mod+Shift+p mode "$power"
+
 # set gaps
 smart_gaps on
 gaps inner 10
@@ -274,6 +278,9 @@ gaps outer 7
 # set borders
 default_border pixel 2
 smart_borders on
+# align title
+title_align center
+
 #
 # Status Bar:
 #

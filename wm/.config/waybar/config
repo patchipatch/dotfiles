@@ -1,7 +1,7 @@
 {
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar at the bottom of your screen
-    "height": 24, // Waybar height
+    "height": 26, // Waybar height
     // "width": 1366, // Waybar width
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "tray", "custom/spotify", "sway/mode"],
@@ -37,7 +37,8 @@
     },
     "clock": {
     	"tooltip": false,    
-        "format": "{:%A, %B %d %H:%M }"
+        "format": "{:%A, %B %d %H:%M }",
+	"on-click": "kitty --class='cli-notif' calcurse"
     },
     "cpu": {
     	"tooltip": false,    
@@ -63,9 +64,11 @@
     "pulseaudio": {
         //"scroll-step": 1,
 	"tooltip": false,
-        "format": "{icon} {volume}%",
+        "format": "{icon} {volume}% {format_source}",
         "format-bluetooth": "{volume}% {icon}",
         "format-muted": " 0%",
+        "format-source": " {volume}%",
+        "format-source-muted": "",
         "format-icons": {
             "headphones": "",
             "handsfree": "",
