@@ -66,7 +66,7 @@
 	"tooltip": false,
         "format": "{icon} {volume}% {format_source}",
         "format-bluetooth": "{volume}% {icon}",
-        "format-muted": " 0%",
+        "format-muted": " 0%",
         "format-source": " {volume}%",
         "format-source-muted": "",
         "format-icons": {
