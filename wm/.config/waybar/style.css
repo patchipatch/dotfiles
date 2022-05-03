@@ -12,9 +12,10 @@
 
 * {
     border: none;
+    border-radius: 0;
     font-family: "Cascadia Code", "Font Awesome 5 Free";
     font-size: 14px;
-    min-height: 24px;
+    min-height: 0;
 }
 window#waybar {
     background: rgba(46,52,64, 0.8);
@@ -28,9 +29,9 @@ window#waybar {
     font-size: 15px;
 }
 
-window.HDMI-A-1 * { font-size: 10px; }
+window.HDMI-A-1 * { font-size: 11px; }
 
-window.HDMI-A-1 #window { font-size: 12px; }
+window.HDMI-A-1 #window { font-size: 13px; }
 
 #workspaces {
     padding: 0 5px;
@@ -38,8 +39,8 @@ window.HDMI-A-1 #window { font-size: 12px; }
 
 #workspaces button {
     padding: 0 5px;
-    background: transparent;
     color: @white;
+    background: transparent;
     border-bottom: 2px solid transparent;
 }
 
@@ -59,8 +60,8 @@ window.HDMI-A-1 #window { font-size: 12px; }
 }
 
 #clock, #battery, #cpu, #disk, #memory, #network, #pulseaudio, #idle_inhibitor, #custom-spotify, #tray, #mode, #custom-power, #custom-dnf {
-    padding: 0 5px;
-    margin: 0 7px;
+    padding: 0 3px;
+    margin: 0 2px;
     color: @white;
 }
 
@@ -114,10 +115,6 @@ window.HDMI-A-1 #window { font-size: 12px; }
 
 #pulseaudio {
     border-bottom: 2px solid @light-blue;
-}
-
-#pulseaudio.muted {
-    color: @red;
 }
 
 #custom-dnf {

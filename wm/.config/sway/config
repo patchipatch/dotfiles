@@ -4,11 +4,25 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+# Set theme
+
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Nordic-darker-standard-buttons'
+    gsettings set $gnome-schema icon-theme 'Nordzy-cyan-dark'
+    gsettings set $gnome-schema cursor-theme 'Nordzy-cursors-white'
+    gsettings set $gnome-schema font-name 'Cascadia Code'
+}
+
+seat seat0 xcursor_theme Nordzy-cursors-white 20
+
 # Start on DP-3 (I prefer it)
 focus output DP-3
 
 # Autostart applications
-exec mako
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 # polkit agent
+exec mako	# notif daemon
 
 ### Variables
 #
@@ -28,7 +42,10 @@ set $term kitty
 set $menu wofi -i --show drun | xargs swaymsg exec --
 
 # Set window properties
-for_window [app_id="cli-notif"] sticky enable, floating enable, move position center, resize set 60 ppt 60 ppt
+for_window {
+    [shell="xwayland"] title_format "%title [XWayland]"
+    [app_id="cli-notif"] sticky enable, floating enable, resize set 50 ppt 50 ppt, move position 30 ppt 0 ppt
+}
 
 ### Output configuration
 #
@@ -46,9 +63,9 @@ output DP-3 mode 2560x1440@165Hz position 1920,0
 output DP-2 disable
 
 # Lock workspaces to specific monitor outputs
-workspace number 1 output HDMI-A-1
-workspace number 2 output DP-3
 
+# Auto back and forth
+workspace_auto_back_and_forth yes
 ### Idle configuration
 #
 # Example configuration:
@@ -68,7 +85,7 @@ workspace number 2 output DP-3
 	timeout 480 'swaymsg "output \* dpms off"' \
 	resume 'swaymsg "output \* dpms on"'
 # do it manually
-bindsym $mod+Ctrl+l exec swaylock -e -f -i ~/.config/wallpaper-blur.jpg &&
+bindsym $mod+Ctrl+l exec swaylock -e -f -i ~/.config/wallpaper-blur.jpg
 
 # Prevent swayidle from running if firefox is fullscreen (watching videos)
 for_window [app_id="firefox"] inhibit_idle fullscreen
@@ -104,7 +121,8 @@ for_window [app_id="firefox"] inhibit_idle fullscreen
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
     bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-    bindsym --whole-window button9 exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && play ~/.config/ball.mp3
+    bindsym --no-repeat $mod+space exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && play ~/.config/ball.mp3
+    bindsym --release --no-repeat $mod+space exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && play ~/.config/ball.mp3
 
     # Start a terminal
     bindsym $mod+Return exec $term
@@ -205,7 +223,7 @@ for_window [app_id="firefox"] inhibit_idle fullscreen
     bindsym $mod+Shift+space floating toggle
 
     # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
+    bindsym $mod+Ctrl+space focus mode_toggle
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
