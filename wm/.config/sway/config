@@ -17,12 +17,16 @@ exec_always {
 
 seat seat0 xcursor_theme Nordzy-cursors-white 20
 
+# Unclutter cursor
+seat seat0 hide_cursor 5000
+
 # Start on DP-3 (I prefer it)
 focus output DP-3
 
 # Autostart applications
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 # polkit agent
 exec mako	# notif daemon
+exec env RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1 # swayr
 
 ### Variables
 #
@@ -44,7 +48,7 @@ set $menu wofi -i --show drun | xargs swaymsg exec --
 # Set window properties
 for_window {
     [shell="xwayland"] title_format "%title [XWayland]"
-    [app_id="cli-notif"] sticky enable, floating enable, resize set 50 ppt 50 ppt, move position 30 ppt 0 ppt
+    [app_id="cli-notif"] sticky enable, floating enable, resize set 50 ppt 50 ppt, move position 25 ppt 0 ppt
 }
 
 ### Output configuration
