@@ -5,7 +5,7 @@
     // "width": 1366, // Waybar width
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "tray", "custom/spotify", "sway/mode"],
-    "modules-center": ["sway/window"],
+    "modules-center": ["sway/window", "custom/recorder"],
     "modules-right": ["pulseaudio", "disk", "memory", "clock", "custom/dnf", "idle_inhibitor"],
     "sway/workspaces": {
         "disable-scroll": true,
@@ -47,7 +47,8 @@
     "disk": {
     	"tooltip": false,    
     	"format": "{used}/{total} ",
-	"on-click": "kitty --class='cli-notif' ncdu"
+	"on-click": "kitty --class='cli-notif' nnn",
+	"on-click-right": "kitty --class='cli-notif' ncdu"
     },
     "memory": {
         "tooltip": false,
@@ -108,5 +109,12 @@
 	"on-click": "pkill -RTMIN+8 waybar",
 	"on-click-right": "~/.config/waybar/pkgnotif.sh",
 	"signal": 8
+    },
+    "custom/recorder": {
+	"format": "",
+	"return-type": "json",
+	"interval": 1,
+	"exec": "echo '{\"class\": \"recording\"}'",
+	"exec-if": "pgrep wf-recorder"
     },
 }

@@ -27,6 +27,7 @@ focus output DP-3
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 # polkit agent
 exec mako	# notif daemon
 exec env RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1 # swayr
+exec gammastep -l 40.275:-75.215 -t 5700:3600 -g 0.8  # gamma
 
 ### Variables
 #
@@ -48,8 +49,10 @@ set $menu wofi -i --show drun | xargs swaymsg exec --
 # Set window properties
 for_window {
     [shell="xwayland"] title_format "%title [XWayland]"
-    [app_id="cli-notif"] sticky enable, floating enable, resize set 50 ppt 50 ppt, move position 25 ppt 0 ppt
+    [app_id="cli-notif"] sticky enable, floating enable, resize set 60 ppt 60 ppt, move position 20 ppt 0 ppt
 }
+
+set $kitty-cli kitty --class='cli-notif'
 
 ### Output configuration
 #
@@ -113,13 +116,15 @@ for_window [app_id="firefox"] inhibit_idle fullscreen
 # Basics:
 
     # Take screenshot of focused desktop
-    bindsym Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name')
+    bindsym Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') && notify-send "Screenshot taken"
     # Take screenshot of selected region
     bindsym Shift+Print exec grim -g "$(slurp)"
     # Take screenshot of selected region and copy it to clipboard
-    bindsym Ctrl+Print exec grim -g "$(slurp)" - | wl-copy
+    bindsym --whole-window $mod+Shift+button9 exec grim -g "$(slurp)" - | wl-copy
     # Take a pixel and print its color value
     bindsym Mod1+Print exec ~/.config/sway/colorpick.sh
+    # Record screen
+    bindsym $mod+Shift+r exec bash $HOME/.config/sway/toggle-screen-recorder.sh
 
     # Increase/Lower Volume
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -151,6 +156,9 @@ for_window [app_id="firefox"] inhibit_idle fullscreen
     bindsym $mod+Shift+f exec firefox
     bindsym $mod+Shift+d exec flatpak run com.discordapp.Discord
     bindsym $mod+Shift+s exec flatpak run com.spotify.Client
+    bindsym $mod+n exec kitty nnn
+    bindsym $mod+t exec $kitty-cli glances
+    bindsym $mod+c exec kitty calcurse
 
     # Quickly edit files
     bindsym $mod+Shift+e mode "$edit"
