@@ -26,8 +26,8 @@ focus output DP-3
 # Autostart applications
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 # polkit agent
 exec mako	# notif daemon
-exec env RUST_BACKTRACE=1 RUST_LOG=swayr=debug swayrd > /tmp/swayrd.log 2>&1 # swayr
 exec gammastep -l 40.275:-75.215 -t 5700:3600 -g 0.8  # gamma
+exec_always ~/.local/bin/autotiling # autotiling
 
 ### Variables
 #
@@ -71,8 +71,6 @@ output DP-2 disable
 
 # Lock workspaces to specific monitor outputs
 
-# Auto back and forth
-workspace_auto_back_and_forth yes
 ### Idle configuration
 #
 # Example configuration:
@@ -92,7 +90,7 @@ workspace_auto_back_and_forth yes
 	timeout 480 'swaymsg "output \* dpms off"' \
 	resume 'swaymsg "output \* dpms on"'
 # do it manually
-bindsym $mod+Ctrl+l exec swaylock -e -f -i ~/.config/wallpaper-blur.jpg
+bindsym $mod+Ctrl+End exec swaylock -e -f -i ~/.config/wallpaper-blur.jpg
 
 # Prevent swayidle from running if firefox is fullscreen (watching videos)
 for_window [app_id="firefox"] inhibit_idle fullscreen
@@ -160,9 +158,9 @@ input "9580:109:Tablet_Monitor_Pen" {
     bindsym $mod+Shift+f exec firefox
     bindsym $mod+Shift+d exec flatpak run com.discordapp.Discord
     bindsym $mod+Shift+s exec flatpak run com.spotify.Client
-    bindsym $mod+n exec kitty nnn
+    bindsym $mod+n exec $term nnn
     bindsym $mod+t exec $kitty-cli glances
-    bindsym $mod+c exec kitty calcurse
+    bindsym $mod+c exec $term calcurse
 
     # Quickly edit files
     bindsym $mod+Shift+e mode "$edit"
@@ -170,27 +168,19 @@ input "9580:109:Tablet_Monitor_Pen" {
 #
 # Moving around:
 #
+
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
-    # Or use $mod+[up|down|left|right]
-    bindsym $mod+Left focus left
-    bindsym $mod+Down focus down
-    bindsym $mod+Up focus up
-    bindsym $mod+Right focus right
 
     # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
     bindsym $mod+Shift+$down move down
     bindsym $mod+Shift+$up move up
     bindsym $mod+Shift+$right move right
-    # Ditto, with arrow keys
-    bindsym $mod+Shift+Left move left
-    bindsym $mod+Shift+Down move down
-    bindsym $mod+Shift+Up move up
-    bindsym $mod+Shift+Right move right
+
 #
 # Workspaces:
 #
@@ -233,7 +223,7 @@ input "9580:109:Tablet_Monitor_Pen" {
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
-    bindsym $mod++f fullscreen
+    bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
@@ -256,30 +246,12 @@ input "9580:109:Tablet_Monitor_Pen" {
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
 #
-#
 # Resizing containers:
 #
-mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
-
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
+bindsym $mod+Ctrl+$left resize grow width 50px
+bindsym $mod+Ctrl+$down resize shrink height 50px
+bindsym $mod+Ctrl+$up resize grow height 50px
+bindsym $mod+Ctrl+$right resize shrink width 50px
 
 # Simple poweroff menu
 
@@ -307,7 +279,7 @@ bindsym $mod+Shift+p mode "$power"
 
 # set gaps
 smart_gaps on
-gaps inner 10
+gaps inner 15
 gaps outer 7
 # set borders
 default_border pixel 2
@@ -324,9 +296,9 @@ bar {
 }
 
 # Set colors for the borders
-client.focused #2e3440 #81A1C1 #eceff4
-client.focused_inactive #2e3440 #4C566A #eceff4 
-client.unfocused #2e3440 #4C566A #eceff4
+client.focused #2e3440 #81A1C1 #eceff4 #81A1C1
+client.focused_inactive #2e3440 #4C566A #eceff4 #4C566A
+client.unfocused #2e3440 #4C566A #eceff4 #4C566A
 
 # idk
 xwayland enable

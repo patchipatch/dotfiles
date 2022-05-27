@@ -38,7 +38,8 @@
     "clock": {
     	"tooltip": false,    
         "format": "{:%A, %B %d %H:%M }",
-	"on-click": "kitty --class='cli-notif' calcurse"
+	"on-click": "kitty --class='cli-notif' calcurse",
+	"on-click-right": "$HOME/.config/waybar/cal.sh"
     },
     "cpu": {
     	"tooltip": false,    
@@ -93,13 +94,15 @@
     "custom/spotify": {
         "tooltip": false,
         "format": "{}",
+	"max-length": 40,
 	"interval": 1,
         "exec": "~/.config/waybar/mediaplayer.sh",
-        "exec-if": "pgrep spotify",
+	"exec-if": "pgrep spotify",
 	"on-click": "playerctl -p spotify play-pause",
 	"on-click-right": "killall spotify",
 	"on-scroll-down": "playerctl -p spotify previous",
 	"on-scroll-up": "playerctl -p spotify next",
+	"escape": true
     },
     "custom/dnf": {
     	"format": "{} ",
@@ -116,5 +119,9 @@
 	"interval": 1,
 	"exec": "echo '{\"class\": \"recording\"}'",
 	"exec-if": "pgrep wf-recorder"
+    },
+    "custom/weather": {
+    "exec": "curl 'https://wttr.in/?format=1'",
+    "interval": 3600
     },
 }

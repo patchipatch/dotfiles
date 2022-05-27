@@ -1,6 +1,6 @@
 #!/bin/sh
 pkglist=$(dnf check-update | grep "updates" | awk '{print $1}' | sed "s/.x86_64//g")
-flatlist=$(flatpak remote-ls --updates --column=name | tail -n+1)
+flatlist=$(flatpak remote-ls --updates --columns=name | tail -n+1)
 
 if ! pkgnum=$(dnf check-update 2> /dev/null | grep "updates" | wc -l); then
 	pkgnum=0
