@@ -2,6 +2,9 @@
     "layer": "top", // Waybar at top layer
     "position": "top", // Waybar at the bottom of your screen
     "height": 26, // Waybar height
+    "margin-left": 5,
+    "margin-right": 5,
+    "margin-top": 5,
     // "width": 1366, // Waybar width
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "tray", "custom/spotify", "sway/mode"],

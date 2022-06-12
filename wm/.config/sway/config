@@ -13,6 +13,7 @@ exec_always {
     gsettings set $gnome-schema icon-theme 'Nordzy-cyan-dark'
     gsettings set $gnome-schema cursor-theme 'Nordzy-cursors-white'
     gsettings set $gnome-schema font-name 'Cascadia Code'
+    gsettings set $gnome-schema color-scheme 'prefer-dark'
 }
 
 seat seat0 xcursor_theme Nordzy-cursors-white 20
@@ -28,6 +29,8 @@ exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 # polkit agent
 exec mako	# notif daemon
 exec gammastep -l 40.275:-75.215 -t 5700:3600 -g 0.8  # gamma
 exec_always ~/.local/bin/autotiling # autotiling
+exec $term --class='scratchpad' # start a scratchpad terminal
+exec flatpak run com.discordapp.Discord # open discord on startup
 
 ### Variables
 #
@@ -50,9 +53,19 @@ set $menu wofi -i --show drun | xargs swaymsg exec --
 for_window {
     [shell="xwayland"] title_format "%title [XWayland]"
     [app_id="cli-notif"] sticky enable, floating enable, resize set 60 ppt 60 ppt, move position 20 ppt 0 ppt
+    [app_id="scratchpad"] sticky enable, floating enable, resize set 60 ppt 60 ppt, move position 20 ppt 0 ppt, move scratchpad
+    [class="Spotify"] move window to workspace 4
+    [class="discord"] move window to workspace 2
+    [app_id="firefox"] inhibit_idle fullscreen
+    [class="steam_app.*"] inhibit_idle fullscreen
 }
 
 set $kitty-cli kitty --class='cli-notif'
+
+assign {
+    [app_id="firefox"] workspace 1 
+    [class="Steam"] workspace 3
+}
 
 ### Output configuration
 #
@@ -70,7 +83,17 @@ output DP-3 mode 2560x1440@165Hz position 1920,0
 output DP-2 disable
 
 # Lock workspaces to specific monitor outputs
-
+workspace {
+   1 output DP-3
+   2 output HDMI-A-1
+   3 output DP-3
+   4 output HDMI-A-1
+   5 output DP-3
+   6 output HDMI-A-1
+   7 output DP-3
+   8 output HDMI-A-1
+   9 output DP-3
+}
 ### Idle configuration
 #
 # Example configuration:
@@ -86,14 +109,11 @@ output DP-2 disable
 
 # lock screen after 5 minutes, turn it off after 8
  exec swayidle -w \
-	timeout 300 'swaylock -e -f -i ~/.config/wallpaper-blur.jpg' \
+	timeout 300 'swaylock -ef --screenshots --clock --efect-blur 5x5 ~/.config/wallpaper-blur.jpg' \
 	timeout 480 'swaymsg "output \* dpms off"' \
 	resume 'swaymsg "output \* dpms on"'
 # do it manually
-bindsym $mod+Ctrl+End exec swaylock -e -f -i ~/.config/wallpaper-blur.jpg
-
-# Prevent swayidle from running if firefox is fullscreen (watching videos)
-for_window [app_id="firefox"] inhibit_idle fullscreen
+bindsym $mod+Ctrl+End exec swaylock -ef --screenshots --clock --effect-blur 5x5
 
 ### Input configuration
 #
@@ -111,6 +131,10 @@ for_window [app_id="firefox"] inhibit_idle fullscreen
 
 input "9580:109:Tablet_Monitor_Pen" {
     map_to_output HDMI-A-1
+}
+
+input type:keyboard {
+    xkb_options caps:escape
 }
 
 ### Key bindings
@@ -134,6 +158,7 @@ input "9580:109:Tablet_Monitor_Pen" {
     bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     bindsym --no-repeat $mod+space exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && play ~/.config/ball.mp3
     bindsym --release --no-repeat $mod+space exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && play ~/.config/ball.mp3
+    bindsym $mod+p exec playerctl -p spotify play-pause
 
     # Start a terminal
     bindsym $mod+Return exec $term
@@ -157,8 +182,9 @@ input "9580:109:Tablet_Monitor_Pen" {
     # Open programs!
     bindsym $mod+Shift+f exec firefox
     bindsym $mod+Shift+d exec flatpak run com.discordapp.Discord
-    bindsym $mod+Shift+s exec flatpak run com.spotify.Client
-    bindsym $mod+n exec $term nnn
+    bindsym $mod+Shift+m exec flatpak run com.spotify.Client
+    bindsym $mod+Shift+s exec steam
+    bindsym $mod+n exec $term nnn -dxeH
     bindsym $mod+t exec $kitty-cli glances
     bindsym $mod+c exec $term calcurse
 
@@ -278,14 +304,10 @@ mode "$edit" {
 bindsym $mod+Shift+p mode "$power"
 
 # set gaps
-smart_gaps on
-gaps inner 15
-gaps outer 7
+gaps inner 10
+gaps outer 3
 # set borders
 default_border pixel 2
-smart_borders on
-# align title
-title_align center
 
 #
 # Status Bar:
@@ -299,6 +321,7 @@ bar {
 client.focused #2e3440 #81A1C1 #eceff4 #81A1C1
 client.focused_inactive #2e3440 #4C566A #eceff4 #4C566A
 client.unfocused #2e3440 #4C566A #eceff4 #4C566A
+client.urgent #2e3440 #BF616A #eceff4 #BF616A
 
 # idk
 xwayland enable
