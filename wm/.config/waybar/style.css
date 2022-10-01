@@ -13,7 +13,7 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "Cascadia Code", "Font Awesome 5 Free";
+    font-family: "CaskaydiaCove Nerd Font Mono";
     font-size: 14px;
     min-height: 0;
 }
@@ -49,7 +49,7 @@ window.HDMI-A-1 #window { font-size: 13px; }
     text-shadow: inherit;
 }
 
-#workspaces button.focused {
+#workspaces button.active {
     color: @white;
     font-weight: bold;
     border-bottom: 2px solid @white;
@@ -131,4 +131,3 @@ window.HDMI-A-1 #window { font-size: 13px; }
 
 #tray {
 }
-
