@@ -181,7 +181,7 @@ input type:keyboard {
     bindsym $mod+Shift+c reload
 
     # Open programs!
-    bindsym $mod+Shift+f exec firefox
+    bindsym $mod+Shift+f exec qutebrowser
     bindsym $mod+Shift+d exec flatpak run com.discordapp.Discord
     bindsym $mod+Shift+m exec flatpak run com.spotify.Client
     bindsym $mod+Shift+s exec steam
