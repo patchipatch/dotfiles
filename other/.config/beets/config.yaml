@@ -1,0 +1,4 @@
+directory: ~/media/music
+plugins: fetchart
+import:
+  move: yes
