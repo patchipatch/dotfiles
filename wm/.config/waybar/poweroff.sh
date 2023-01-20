@@ -1,6 +1,5 @@
 #!/bin/bash
-case $(wofi -p "" -di -L 5 -l 3 -W 7% \
-    -D dynamic_lines=true << EOF | sed 's/^ *//'
+case $(fuzzel -d -l 5 << EOF | sed 's/^ *//'
     Cancel
     Shutdown
     Reboot
@@ -18,6 +17,6 @@ EOF
         loginctl lock-session
         ;;
     "Log off")
-        swaymsg exit
+        riverctl exit
         ;;
 esac

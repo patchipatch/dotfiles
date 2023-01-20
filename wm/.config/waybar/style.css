@@ -1,76 +1,55 @@
-@define-color fg #D8DEE9;
-@define-color bg #2E3440;
-@define-color fg-sel #000000;
-@define-color bg-sel #FFFACD;
-@define-color green #A3BE8C;
-@define-color red #BF616A;
-@define-color yellow #EBCB8B;
-@define-color blue #81A1C1;
-@define-color magenta #B48EAD;
-@define-color light-blue #88C0D0;
-@define-color white #E5E9F0;
-
 * {
     border: none;
     border-radius: 0;
-    font-family: "CaskaydiaCove Nerd Font Mono";
-    font-size: 14px;
+    font-family: "BigBlue_TerminalPlus Nerd Font";
+    font-size: 13px;
     min-height: 0;
 }
+
 window#waybar {
-    background: rgba(46,52,64, 0.8);
-    color: @white;
-    margin: 2px 0px;
+    background: transparent;
+    color: white;
 }
 
 #window {
-    padding: 0 5px;
     font-weight: bold;
-    font-size: 15px;
+    font-family: "BigBlue_TerminalPlus Nerd Font";
 }
-
-window.HDMI-A-1 * { font-size: 11px; }
-
-window.HDMI-A-1 #window { font-size: 13px; }
-
+/*
 #workspaces {
     padding: 0 5px;
 }
+*/
 
-#workspaces button {
+#tags button {
     padding: 0 5px;
-    color: @white;
     background: transparent;
-    border-bottom: 2px solid transparent;
+    color: white;
+    border-top: 2px solid transparent;
 }
 
-#workspaces button:hover {
-    box-shadow: inherit;
-    text-shadow: inherit;
+#tags button.focused {
+    color: #c9545d;
+    border-top: 2px solid #c9545d;
 }
 
-#workspaces button.active {
-    color: @white;
+#tags button.occupied {
     font-weight: bold;
-    border-bottom: 2px solid @white;
+    font-size: 30px;
 }
 
 #mode {
-    border-bottom: 2px solid @white;
+    background: #64727D;
+    border-bottom: 3px solid white;
 }
 
-#clock, #battery, #cpu, #disk, #memory, #network, #pulseaudio, #idle_inhibitor, #custom-spotify, #tray, #mode, #custom-power, #custom-dnf {
+#clock, #battery, #mpd, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode {
     padding: 0 3px;
     margin: 0 2px;
-    color: @white;
 }
 
 #clock {
-    border-bottom: 2px solid @yellow;
-}
-
-#disk {
-    border-bottom: 2px solid @red;
+    font-weight: bold;
 }
 
 #battery {
@@ -103,7 +82,6 @@ window.HDMI-A-1 #window { font-size: 13px; }
 }
 
 #memory {
-    border-bottom: 2px solid @blue;
 }
 
 #network {
@@ -114,20 +92,15 @@ window.HDMI-A-1 #window { font-size: 13px; }
 }
 
 #pulseaudio {
-    border-bottom: 2px solid @light-blue;
 }
 
-#custom-dnf {
-    border-bottom: 2px solid @magenta;
+#pulseaudio.muted {
 }
 
 #custom-spotify {
-    border-bottom: 2px solid @green;
-}
-
-#custom-recorder {
-	color: @red;
+    color: rgb(102, 220, 105);
 }
 
 #tray {
 }
+

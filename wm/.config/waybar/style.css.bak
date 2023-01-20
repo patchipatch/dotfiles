@@ -1,0 +1,93 @@
+@define-color fg #D8DEE9;
+@define-color bg #2E3440;
+@define-color fg-sel #000000;
+@define-color bg-sel #FFFACD;
+@define-color green #A3BE8C;
+@define-color red #BF616A;
+@define-color yellow #EBCB8B;
+@define-color blue #81A1C1;
+@define-color magenta #B48EAD;
+@define-color light-blue #88C0D0;
+@define-color white #E5E9F0;
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "BigBlue_TerminalPlus Nerd Font Mono";
+    font-size: 14px;
+    min-height: 0;
+}
+window#waybar {
+    background: rgba(46,52,64, 0.8);
+    color: @white;
+    margin: 2px 0px;
+}
+
+#window {
+    padding: 0 5px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+window.HDMI-A-1 * { font-size: 11px; }
+
+window.HDMI-A-1 #window { font-size: 13px; }
+
+#workspaces {
+    padding: 0 5px;
+}
+
+#tags {
+    color: @white;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    color: @white;
+    background: transparent;
+    border-bottom: 2px solid transparent;
+}
+
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+
+#workspaces button.active {
+    color: @white;
+    font-weight: bold;
+    border-bottom: 2px solid @white;
+}
+
+#mode {
+    border-bottom: 2px solid @white;
+}
+
+#clock, #cpu, #disk, #memory, #network, #pulseaudio, #tray{
+    padding: 0 3px;
+    margin: 0 2px;
+    color: @white;
+}
+
+#clock {
+    border-bottom: 2px solid @yellow;
+}
+
+#disk {
+    border-bottom: 2px solid @red;
+}
+
+#cpu {
+}
+
+#memory {
+    border-bottom: 2px solid @blue;
+}
+
+#network {
+}
+#pulseaudio {
+    border-bottom: 2px solid @light-blue;
+}
+#tray {
+}

@@ -1,4 +1,6 @@
 directory: ~/media/music
-plugins: fetchart
+plugins: fetchart scrub ftintitle lastgenre
 import:
   move: yes
+lastgenre:
+  count: 3

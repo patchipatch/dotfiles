@@ -30,11 +30,14 @@ settings:
     global: Mozilla/5.0 ({os_info}) AppleWebKit/{webkit_version} (KHTML, like Gecko)
       {qt_key}/{qt_version} {upstream_browser_key}/{upstream_browser_version} Safari/{webkit_version}
   content.notifications.enabled:
+    https://www.chess.com: false
     https://www.reddit.com: false
   content.register_protocol_handler:
     https://mail.google.com?extsrc=mailto&url=%25s: false
   content.user_stylesheets:
     global: null
+  fonts.default_size:
+    global: 12pt
   scrolling.smooth:
     global: false
   tabs.max_width:
