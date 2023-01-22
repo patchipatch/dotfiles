@@ -11,11 +11,11 @@
 # Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
 
 riverctl spawn "wlr-randr --output HDMI-A-1 --pos 0,0 --output DP-2 --pos 1920,0"
-riverctl spawn "foot --server"
+riverctl spawn "pkill foot; foot --server"
 riverctl spawn rivertile
-riverctl spawn wlsunset
-riverctl spawn fnott
-riverctl spawn waybar
+riverctl spawn "pkill wlsunset; wlsunset"
+riverctl spawn "pkill fnott; fnott"
+riverctl spawn "pkill waybar; waybar"
 
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 riverctl map normal Super+Shift Return spawn footclient
@@ -30,10 +30,13 @@ riverctl map normal Super B spawn qutebrowser
 riverctl map normal Super+Shift D spawn "flatpak run com.discordapp.Discord"
 
 # spawn volume mixer
-riverctl map normal Super+Shift M spawn "foot pulsemixer"
+riverctl map normal Super+Shift M spawn "footclient pulsemixer"
 
 # spawn ncmpcpp
-riverctl map normal Super M spawn "foot ncmpcpp"
+riverctl map normal Super M spawn "footclient ncmpcpp"
+
+# spawn file manager
+riverctl map normal Super F spawn "footclient lf"
 
 # toggle pause
 riverctl map normal Super P spawn "mpc toggle"
@@ -54,6 +57,9 @@ riverctl map normal Super+Shift Z spawn "fnottctl actions"
 
 # powermenu
 riverctl map normal Super+Shift P spawn "$HOME/.config/waybar/poweroff.sh"
+
+# reinit river
+riverctl map normal Super+Shift R spawn "$HOME/.config/river/init"
 
 # Super+Q to close the focused view
 riverctl map normal Super+Shift Q close

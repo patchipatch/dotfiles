@@ -1,8 +1,8 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "BigBlue_TerminalPlus Nerd Font";
-    font-size: 13px;
+    font-family: "Monofur Nerd Font";
+    font-size: 16px;
     min-height: 0;
 }
 
@@ -13,7 +13,6 @@ window#waybar {
 
 #window {
     font-weight: bold;
-    font-family: "BigBlue_TerminalPlus Nerd Font";
 }
 /*
 #workspaces {
@@ -34,8 +33,6 @@ window#waybar {
 }
 
 #tags button.occupied {
-    font-weight: bold;
-    font-size: 30px;
 }
 
 #mode {
@@ -50,16 +47,6 @@ window#waybar {
 
 #clock {
     font-weight: bold;
-}
-
-#battery {
-}
-
-#battery icon {
-    color: red;
-}
-
-#battery.charging {
 }
 
 @keyframes blink {

@@ -1,5 +1,5 @@
 #!/bin/bash
-case $(fuzzel -d -l 5 << EOF | sed 's/^ *//'
+case $(fuzzel -d -l 5 --layer overlay << EOF | sed 's/^ *//'
     Cancel
     Shutdown
     Reboot
