@@ -1,5 +1,7 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
+    abbr -a rm trash-rm
+    fish_vi_key_bindings
 end
 
 # Created by `pipx` on 2022-12-31 18:24:44

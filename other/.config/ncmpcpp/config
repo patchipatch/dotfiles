@@ -2,4 +2,40 @@
 mpd_host = localhost
 mpd_port = 6600
 mpd_music_dir = ~/media/music
-visualizer_type = spectrum
+
+[visualizer]
+visualizer_type = "spectrum"
+visualizer_look = "●┃"
+visualizer_color = "default"
+
+[header]
+header_visibility = "no"
+header_window_color = "default"
+playlist_shorten_total_times = "yes"
+volume_color = "default"
+# state_line_color = "black"
+
+[playlist]
+playlist_display_mode = "classic"
+song_list_format = "{{%a - %t}|{%f}}{$R%l}"
+now_playing_prefix = "$b$5"
+now_playing_suffix = "$/b$9"
+
+[statusbar]
+progressbar_look = "─>"
+# progressbar_color = "black"
+statusbar_visibility = "no"
+statusbar_color = "default"
+song_status_format = "{{%a}{ - %t}}|{ - %f}{ - %b{ (%y)}}}"
+
+[library]
+song_library_format = "{{%t}|{%f}}{$R%l}"
+empty_tag_color = "black"
+
+[global]
+colors_enabled = "yes"
+main_window_color = "default"
+enable_window_title = "yes"
+external_editor = "nvim"
+startup_screen = "media_library"
+media_library_primary_tag = album_artist

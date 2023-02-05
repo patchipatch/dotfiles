@@ -1,0 +1,5 @@
+[options]
+background = checks
+overlay = true
+overlay_font = Monofur Nerd Font:12
+overlay_position_bottom = true

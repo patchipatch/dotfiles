@@ -1,0 +1,22 @@
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
+
+set icons
+
+set hidden on
+
+cmd trash %trash-put $fx
+
+map t trash
+
+cmd extract ${{
+    set -f
+    atool -x $f
+}}
+
+cmd bulkrename $vidir
+
+map B bulkrename
+map x extract

@@ -9,31 +9,32 @@
     // Choose the order of the modules
     "modules-left": ["river/tags", "tray", "river/window"],
     "modules-center": ["mpd"],
-    "modules-right": ["pulseaudio", "disk", "memory", "clock"],
+    "modules-right": ["pulseaudio", "clock"],
 
     "river/tags": {
        "num-tags": 5,
        "tag-labels": [
-           "",
-           "",
-           "",
-           "",
-           ""
+           "1",
+           "2",
+           "3",
+           "4",
+           "5"
 	]
     },
     "river/mode": {
         "format": "{}"
     },
     "river/window": {
-        "format": "{}",
+        "format": "> {}",
+	"max-length": 45,
     },
     "tray": {
-        // "icon-size": 21,
+        "icon-size": 15,
         "spacing": 10
     },
     "clock": {
     	"tooltip": false,    
-        "format": "{:%A, %B %d %H:%M }",
+        "format": "{:%A, %B %d %H:%M} 󰥔 ",
     },
     "cpu": {
     	"tooltip": false,    
@@ -50,11 +51,11 @@
     "pulseaudio": {
         //"scroll-step": 1,
 	"tooltip": false,
-        "format": "{icon} {volume}% {format_source}",
+        "format": "{volume}:{icon}",
         "format-bluetooth": "{volume}% {icon}",
-        "format-muted": " {format_source}",
-        "format-source": " {volume}%",
-        "format-source-muted": "",
+        "format-muted": "MUTE:x-----",
+        "format-source": "{volume}% 󰍬",
+        "format-source-muted": "x-----",
         "format-icons": {
             "headphones": "",
             "handsfree": "",
@@ -62,7 +63,7 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", ""]
+            "default": ["o-----", "-o----", "--o---", "---o--", "----o-", "-----o"]
         },
         "on-click": "kitty --class='cli-notif' pulsemixer",
 	"on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
@@ -70,15 +71,15 @@
 	"on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -2%"
     },
     "mpd": {
-    "format": "{stateIcon} {artist} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+    "format": "{stateIcon} {artist} - {title} 󰝚",
     "interval": 10,
     "format-disconnected": "",
     "format-stopped": "",
     "state-icons": {
-        "paused": "",
-        "playing": ""
+        "paused": "󰏤",
+        "playing": "󰐊"
     },
     "tooltip-format": "MPD (connected)",
     "tooltip-format-disconnected": "MPD (disconnected)"
-    }
+    },
 }

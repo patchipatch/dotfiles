@@ -4,3 +4,5 @@ import:
   move: yes
 lastgenre:
   count: 3
+fetchart:
+  sources: filesystems itunes amazon coverart albumart
