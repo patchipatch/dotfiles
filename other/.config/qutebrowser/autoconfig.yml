@@ -41,6 +41,8 @@ settings:
     global: false
   fonts.default_size:
     global: 12pt
+  qt.workarounds.remove_service_workers:
+    global: true
   scrolling.smooth:
     global: false
   tabs.max_width:

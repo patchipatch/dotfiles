@@ -63,7 +63,7 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["o-----", "-o----", "--o---", "---o--", "----o-", "-----o"]
+            "default": ["󰕿", "󰖀", "󰕾"]
         },
         "on-click": "kitty --class='cli-notif' pulsemixer",
 	"on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",

@@ -1,5 +1,9 @@
 set number
 set nocompatible
+set expandtab
+set shiftwidth=4
+set smartindent
+set autoindent
 syntax on
 filetype plugin on
 syntax on

@@ -12,7 +12,7 @@
 
 riverctl spawn "wlr-randr --output HDMI-A-1 --pos 0,0 --output DP-2 --pos 1920,0"
 riverctl spawn "pkill foot; foot --server"
-riverctl spawn "pkill rivertile ; rivertile -view-padding 6 -outer-padding 12"
+riverctl spawn "pkill rivertile ; rivertile -view-padding 1"
 riverctl spawn "pkill wlsunset; wlsunset -l 40.5 -L -77.2"
 riverctl spawn "pkill fnott; fnott"
 riverctl spawn "pkill waybar; waybar"
@@ -80,13 +80,9 @@ riverctl map normal Super K focus-view previous
 riverctl map normal Super+Shift J swap next
 riverctl map normal Super+Shift K swap previous
 
-# Super+Period and Super+Comma to focus the next/previous output
-riverctl map normal Super Period focus-output next
-riverctl map normal Super Comma focus-output previous
-
-# Super+Shift+{Period,Comma} to send the focused view to the next/previous output
-riverctl map normal Super+Shift Period send-to-output next
-riverctl map normal Super+Shift Comma send-to-output previous
+# view/move between outputs
+riverctl map normal Super E focus-output next
+riverctl map normal Super+Shift E send-to-output next
 
 # add another master
 riverctl map normal Super O send-layout-cmd rivertile "main-count +1"
@@ -197,8 +193,8 @@ done
 
 # Set background and border color
 riverctl background-color 0x4A4249
-riverctl border-color-focused 0x312B30
-riverctl border-color-unfocused 0x586e75
+riverctl border-color-focused 0xa07891
+riverctl border-color-unfocused 0x3b2d3d
 
 # Set keyboard repeat rate
 riverctl set-repeat 50 300

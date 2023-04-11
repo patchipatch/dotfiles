@@ -1,6 +1,7 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
-    abbr -a rm trash-rm
+    abbr -a rm trash-put
+    abbr -a se 'xdg-open $(fzf -i --height=20% --layout=reverse)'
     fish_vi_key_bindings
 end
 
