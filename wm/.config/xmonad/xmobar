@@ -1,0 +1,36 @@
+Config { overrideRedirect = False
+       , font     = "xft:JetBrainsMonoNerdFontMono-Regular 12"
+       , bgColor  = "#0E1415"
+       , fgColor  = "#CECECE"
+       , position = TopH 20
+       , commands = [ Run MultiCpu
+                        [ "-L", "20"
+                        , "-H", "60"
+                        , "--high"  , "#e25d56"
+                        , "--normal", "#73ca50"
+                        , "-t", " <total>%"
+                        ] 10
+                    , Run Alsa "default" "Master"
+                        [ "--template", "<volumestatus>"
+                        , "--suffix"  , "True"
+                        , "--"
+                        , "--on", ""
+                        , "-o", "󰝟 MUTE"
+                        , "-h", "󰕾 "
+                        , "-m", "󰖀 "
+                        , "-l", "󰕿 "
+                        ]
+                    , Run Memory ["--template", " <used>GB/<total>GB", "-d", "1", "--", "--scale", "1024"] 10
+                    , Run Date "%a %Y-%m-%d <fc=#e9bf57>%H:%M</fc>" "date" 10
+                    , Run MPD ["-t", " <artist> - <title>"
+                              ,"-T", "45"
+                              ,"-E", "..."] 10
+                    , Run Com "curl" ["wttr.in?format=%C:%t/%f&m"] "forecast" 18000
+                    , Run DiskU [("/", "<used>/<size>"), ("sdb1", "<size>")]
+                                ["-L", "20", "-H", "50", "-p", "3", "-d", "1"] 20
+                    , Run XMonadLog
+                    ]
+       , sepChar  = "%"
+       , alignSep = "}{"
+       , template = "%XMonadLog% }{ %alsa:default:Master% | %multicpu% | %memory% | %disku% | %mpd% | %date% "
+       }

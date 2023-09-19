@@ -1,0 +1,132 @@
+import XMonad
+import System.Exit
+import System.IO
+
+-- config
+import XMonad.Util.EZConfig
+import XMonad.Util.Ungrab
+import XMonad.Util.Loggers
+
+-- layouts
+import XMonad.Actions.DwmPromote
+import XMonad.Layout.NoBorders
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.CenteredMaster
+import XMonad.Layout.OneBig
+import XMonad.Layout.TwoPanePersistent
+import XMonad.Layout.Tabbed
+import XMonad.Layout.Renamed
+import XMonad.Layout.ToggleLayouts
+import XMonad.Actions.WithAll
+
+-- ewmh
+import XMonad.Hooks.EwmhDesktops
+
+-- bar
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
+
+-- workaround
+import XMonad.Hooks.WindowSwallowing
+import qualified XMonad.Util.Hacks as Hacks
+import qualified XMonad.StackSet as W
+import XMonad.Hooks.ManageHelpers
+
+main :: IO ()
+main = xmonad
+     . ewmh
+     . withEasySB (statusBarProp "xmobar ~/.config/xmonad/xmobar" (pure myXmobarPP)) defToggleStrutsKey 
+     $ myConfig
+
+myConfig = def
+    { modMask    = mod4Mask      -- Rebind Mod to the Super key
+    , terminal   = "alacritty"
+    , layoutHook = myLayout      -- Use custom layouts
+    , handleEventHook = handleEventHook def <+> Hacks.windowedFullscreenFixEventHook <+> swallowEventHook (className =? "Alacritty" <||> className =? "Termite") (return True)
+    , manageHook = (isFullscreen --> doFullFloat)
+    }
+    `removeKeysP`
+    [ "M-p", "M-S-p"
+    , "M-S-c"
+    , "M-n"
+    , "M-t"
+    , "M-/", "M-?"
+    , "M-S-q", "M-q"
+    , "M-<Tab>", "M-S-<Tab>"
+    , "M-<Return>"
+    -- about screens
+    , "M-w", "M-e", "M-r"
+    , "M-S-w", "M-S-e", "M-S-r"
+    ]
+   `additionalKeysP`
+    [ ("M-<F1>", spawn "flatpak run com.github.Eloston.UngoogledChromium")
+    , ("M-m", spawn "alacritty -e ncmpcpp")
+    , ("M-f", spawn "alacritty -e lf")
+    , ("M-S-f", sendMessage ToggleLayout)
+    , ("M-S-m", spawn "alacritty -e pulsemixer")
+    , ("M-<F2>", spawn "flatpak run io.github.spacingbat3.webcord")
+    , ("M-<F3>", spawn "steam")
+    , ("M-<F4>", spawn "flatpak run hu.kramo.Cartridges")
+    , ("M-d", spawn "dmenu_run")
+    , ("M-S-r", spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") 
+    , ("M-n", spawn "mpc next")
+    , ("M-S-n", spawn "mpc prev")
+    , ("M-p", spawn "mpc toggle")
+    , ("<XF86AudioRaiseVolume>", spawn "pulsemixer --change-volume +5")
+    , ("<XF86AudioLowerVolume>", spawn "pulsemixer --change-volume -5")
+    , ("<XF86AudioMute>", spawn "pulsemixer --toggle-mute")
+    , ("M-S-q", kill)
+    , ("M-S-p", io $ exitWith (ExitSuccess))
+    , ("M-o", sendMessage (IncMasterN 1))
+    , ("M-S-o", sendMessage (IncMasterN (-1)))
+    , ("M-v", withFocused $ windows . W.sink)
+    , ("M-S-v", sinkAll)
+    , ("M-<Return>", dwmpromote)
+    ]
+    `removeMouseBindings`
+    [ (mod4Mask, button1), (mod4Mask, button3) ]
+    `additionalMouseBindings`
+    [ ((mod4Mask, button1), \w -> focus w >> mouseMoveWindow w)
+    , ((mod4Mask, button3), \w -> focus w >> mouseResizeWindow w)
+    ]
+myLayout = smartBorders $ toggleLayouts (fullscreen) (tiled ||| tiledMirror ||| corner ||| monocle ||| threeCol ||| simpleTabbed)
+  where
+    tiled    = renamed [Replace "[]="] $ Tall nmaster delta ratio
+    tiledMirror = renamed [Replace "TTT"] $ Mirror (Tall nmaster delta ratio)
+    corner = renamed [Replace "C||"] $ OneBig (5/8) (5/8)
+    monocle = renamed [Replace "[M]"] $ noBorders (Full)
+    fullscreen = renamed [Replace "[F]"] $ noBorders (Full)
+    threeCol = renamed [Replace "]C["] $ ThreeColMid nmaster delta ratio
+    nmaster  = 1
+    ratio    = 1/2
+    delta    = 5/100
+
+myXmobarPP :: PP
+myXmobarPP = def
+       { ppSep             = magenta "   "
+    , ppTitleSanitize   = xmobarStrip
+    , ppCurrent         = wrap " " "" . xmobarBorder "Top" "#4a88e4" 2
+    , ppHidden          = white . wrap " " ""
+    , ppHiddenNoWindows = lowWhite . wrap " " ""
+    , ppUrgent          = red . wrap (yellow "!") (yellow "!")
+    , ppOrder           = \[ws, l, _, wins] -> [ws, l, wins]
+    , ppExtras          = [logTitles formatFocused formatUnfocused]
+    }
+  where
+    formatFocused   = wrap (white    "-> ") (white    "") . magenta . ppWindow
+    formatUnfocused = wrap (lowWhite "") (lowWhite "") . blue    . ppWindow
+
+    -- | Windows should have *some* title, which should not not exceed a
+    -- sane length.
+    ppWindow :: String -> String
+    ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
+
+    blue, lowWhite, magenta, red, white, yellow :: String -> String
+    magenta  = xmobarColor "#915caf" ""
+    blue     = xmobarColor "#4a88e4" ""
+    white    = xmobarColor "#f0f0f0" ""
+    yellow   = xmobarColor "#e9bf57" ""
+    red      = xmobarColor "#e25d56" ""
+    lowWhite = xmobarColor "#CECECE" ""
+

@@ -1,22 +1,22 @@
 #!/bin/bash
-case $(fuzzel -d -l 5 --layer overlay << EOF | sed 's/^ *//'
-    Cancel
-    Shutdown
-    Reboot
-    Log off
-    Lock
+case $(wofi --show dmenu -L 7 -l 1 -W 10% << EOF | sed 's/^ *//'
+    󰜺 Cancel
+     Shutdown
+     Reboot
+    󰗼 Log off
+     Lock
 EOF
 ) in
-    "Shutdown")
-        systemctl poweroff
+    " Shutdown")
+        poweroff
         ;;
-    "Reboot")
-        systemctl reboot
+    " Reboot")
+        reboot
         ;;
-    "Lock")
+    " Lock")
         loginctl lock-session
         ;;
-    "Log off")
-        riverctl exit
+    "󰗼 Log off")
+        hyprctl dispatch exit
         ;;
 esac

@@ -1,5 +1,5 @@
 directory: ~/media/music
-plugins: fetchart scrub ftintitle parentwork fish inline
+plugins: fetchart scrub ftintitle parentwork fish inline missing info
 artist_credit: no
 import:
   move: yes
@@ -8,8 +8,6 @@ musicbrainz:
   genres: yes    
 fetchart:
   sources: filesystems itunes amazon coverart albumart
-parentwork:
-  auto: yes
 asciify_paths: yes
 item_fields:
   myartist: albumartist.split(';')[0]

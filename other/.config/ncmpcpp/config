@@ -9,7 +9,7 @@ visualizer_look = "●┃"
 visualizer_color = "default"
 
 [header]
-header_visibility = "no"
+header_visibility = "yes"
 header_window_color = "default"
 playlist_shorten_total_times = "yes"
 volume_color = "default"
@@ -24,7 +24,7 @@ now_playing_suffix = "$/b$9"
 [statusbar]
 progressbar_look = "─>"
 # progressbar_color = "black"
-statusbar_visibility = "no"
+statusbar_visibility = "yes"
 statusbar_color = "default"
 song_status_format = "{{%a}{ - %t}}|{ - %f}{ - %b{ (%y)}}}"
 
@@ -38,4 +38,4 @@ main_window_color = "default"
 enable_window_title = "yes"
 external_editor = "nvim"
 startup_screen = "media_library"
-media_library_primary_tag = album_artist
+media_library_primary_tag = "album_artist"

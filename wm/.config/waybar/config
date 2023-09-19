@@ -7,26 +7,25 @@
     //"margin-top": 5,
     // "width": 1366, // Waybar width
     // Choose the order of the modules
-    "modules-left": ["river/tags", "tray", "river/window"],
+    "modules-left": ["hyprland/workspaces", "hyprland/window", "tray"],
     "modules-center": ["mpd"],
-    "modules-right": ["pulseaudio", "clock"],
-
-    "river/tags": {
-       "num-tags": 5,
-       "tag-labels": [
-           "1",
-           "2",
-           "3",
-           "4",
-           "5"
-	]
+    "modules-right": ["cpu", "memory", "disk", "pulseaudio", "clock"],
+    
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+	"1": "",
+	"2": "",
+	"3": "",
+	"4": "",
+	"5": "",
+	"active": "",
+	"default": ""
+        },
     },
-    "river/mode": {
-        "format": "{}"
-    },
-    "river/window": {
+    "hyprland/window": {
         "format": "> {}",
-	"max-length": 45,
+	"separate-outputs": true,
     },
     "tray": {
         "icon-size": 15,
@@ -51,9 +50,9 @@
     "pulseaudio": {
         //"scroll-step": 1,
 	"tooltip": false,
-        "format": "{volume}:{icon}",
+        "format": "{icon} {volume}",
         "format-bluetooth": "{volume}% {icon}",
-        "format-muted": "MUTE:x-----",
+        "format-muted": "{icon} {volume}",
         "format-source": "{volume}% 󰍬",
         "format-source-muted": "x-----",
         "format-icons": {

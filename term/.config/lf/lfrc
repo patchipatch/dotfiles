@@ -5,7 +5,7 @@ set cleaner ctpvclear
 
 set icons
 
-set hidden on
+set hidden true
 
 cmd trash %trash-put $fx
 

@@ -2,5 +2,5 @@ prompt=Open a Program!
 hide_scroll=true
 insensitive=true
 no_actions=true
-location=middle
+location=0
 layer=overlay
