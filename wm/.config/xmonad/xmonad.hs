@@ -76,6 +76,7 @@ myConfig = def
     , ("<XF86AudioRaiseVolume>", spawn "pulsemixer --change-volume +5")
     , ("<XF86AudioLowerVolume>", spawn "pulsemixer --change-volume -5")
     , ("<XF86AudioMute>", spawn "pulsemixer --toggle-mute")
+    , ("M-t", spawn "alacritty -e btop")
     , ("M-S-q", kill)
     , ("M-S-p", io $ exitWith (ExitSuccess))
     , ("M-o", sendMessage (IncMasterN 1))
