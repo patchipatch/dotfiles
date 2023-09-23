@@ -70,12 +70,17 @@ myConfig = def
     , ("M-<F4>", spawn "flatpak run hu.kramo.Cartridges")
     , ("M-d", spawn "dmenu_run")
     , ("M-S-r", spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") 
-    , ("M-n", spawn "mpc next")
-    , ("M-S-n", spawn "mpc prev")
-    , ("M-p", spawn "mpc toggle")
     , ("<XF86AudioRaiseVolume>", spawn "pulsemixer --change-volume +5")
     , ("<XF86AudioLowerVolume>", spawn "pulsemixer --change-volume -5")
     , ("<XF86AudioMute>", spawn "pulsemixer --toggle-mute")
+<<<<<<< HEAD:wm/.config/xmonad/xmonad.hs.lap
+    , ("<XF86MonBrightnessUp>", spawn "brightnessctl s +50")
+    , ("<XF86MonBrightnessDown>", spawn "brightnessctl s 50-")
+    , ("<XF86AudioPrev>", spawn "mpc prev")
+    , ("<XF86AudioNext>", spawn "mpc next")
+    , ("<XF86AudioPlay>", spawn "mpc toggle")
+=======
+>>>>>>> d2bbf8a2c8bbb09f0633d8575b4105435f2cd3d7:wm/.config/xmonad/xmonad.hs
     , ("M-t", spawn "alacritty -e btop")
     , ("M-S-q", kill)
     , ("M-S-p", io $ exitWith (ExitSuccess))
