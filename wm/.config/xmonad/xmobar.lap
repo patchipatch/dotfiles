@@ -1,0 +1,52 @@
+Config { overrideRedirect = False
+       , font     = "xft:JetBrainsMonoNerdFontMono-Regular 12"
+       , bgColor  = "#0E1415"
+       , fgColor  = "#CECECE"
+       , position = TopH 20
+       , commands = [ Run MultiCpu
+                        [ "-L", "20"
+                        , "-H", "60"
+                        , "--high"  , "#e25d56"
+                        , "--normal", "#73ca50"
+                        , "-t", " <total>%"
+                        ] 10
+                    , Run Alsa "default" "Master"
+                        [ "--template", "<status> <volume>"
+                        , "--suffix"  , "True"
+                        , "--"
+                        , "-O", ""
+                        , "-o", "󰝟"
+                        , "-h", "󰕾"
+                        , "-m", "󰖀"
+                        , "-l", "󰕿"
+                        , "-C", "#73ca50"
+                        , "-C", "#e25d56"
+                        ]
+                    , Run Memory ["--template", "󰍛 <used>GB", "-d", "1", "--", "--scale", "1024"] 10
+                    , Run Date "%a %Y-%m-%d <fc=#e9bf57>%H:%M</fc>" "date" 10
+                    , Run MPD ["-t", "<statei><title>"
+                              ,"-T", "20"
+                              ,"-E", "..."
+                              ,"--", "-P", " ", "-S", "-", "-Z", ""] 10
+                    , Run Com "curl" ["wttr.in?format=%C:%t/%f&m"] "forecast" 18000
+                    , Run BatteryP ["BAT0"]
+                                   ["-t", "<acstatus>"
+                                    , "-L", "10", "-H", "80"
+                                    , "-l", "#e25d56", "-h", "#73ca50"
+                                    , "--", "-O", "<fc=#73ca50>󰂄</fc> <left>%", "-o", "<fc=#cecece>󰁹</fc> <left>%"
+                                    ] 10
+                    , Run MultiCoreTemp ["-t", "󰔏 <avg>°C",
+                                         "-L", "60", "-H", "80",
+                                         "-l", "#73ca50", "-n", "e9bf57", "-h", "#e25d56",
+                                         "--", "--mintemp", "20", "--maxtemp", "100"] 50
+                    , Run Wireless "" ["-t", "󰢾 <quality>%"
+                                      , "-L", "50", "-H", "80"
+                                      , "-l", "#e9bf57", "-h", "#73ca50"] 10
+                    , Run DiskU [("/", "<free>")]
+                                ["-d", "1", "-L", "20", "-H", "50"] 20
+                    , Run XMonadLog
+                    ]
+       , sepChar  = "%"
+       , alignSep = "}{"
+       , template = "%XMonadLog% }{ %wi% | %battery% | %alsa:default:Master% | %multicpu% | %multicoretemp% | %memory% | %disku% | %date% "
+       }
